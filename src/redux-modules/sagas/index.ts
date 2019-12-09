@@ -68,9 +68,9 @@ export function* sagaFetchData(action: any) {
 export function* sagaDownloadJSON() {
   const ads = yield select(selectorAds);
   if (ads.length > 0 && ads.length % 90 === 0) {
-    // const filteredAds = utilityFilterData(ads);
+    const filteredAds = utilityFilterData(ads);
 
-    const adsObject = ads.reduce((obj: any, ad: any) => {
+    const adsObject = filteredAds.reduce((obj: any, ad: any) => {
       obj[ad.urn] = ad;
       return obj;
     }, {});
