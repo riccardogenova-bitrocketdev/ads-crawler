@@ -2,7 +2,7 @@
 
 // #region ::: IMPORT
 import { call, delay, select, put } from 'redux-saga/effects';
-import { apiSubito } from '../../api';
+import { apiSubitoSiciliaAllAds } from '../../api';
 import {
   selectorPageFrom,
   selectorTotaleItems,
@@ -38,7 +38,7 @@ export function* sagaPollRate() {
     } catch (errors) {
       actionFetchDataFailure(errors);
     }
-    const randomDelay = utilityGetRandomInt({ min: 2000, max: 5000 });
+    const randomDelay = utilityGetRandomInt({ min: 2000, max: 4000 });
     yield delay(randomDelay);
   }
 }
@@ -46,7 +46,7 @@ export function* sagaPollRate() {
 export function* sagaFetchData(action: any) {
   try {
     const prevTotalItems: number = yield select(selectorTotaleItems);
-    const response: Response = yield call(apiSubito, {
+    const response: Response = yield call(apiSubitoSiciliaAllAds, {
       page: action.from,
     });
     if (prevTotalItems !== response.count_all) {
@@ -68,9 +68,9 @@ export function* sagaFetchData(action: any) {
 export function* sagaDownloadJSON() {
   const ads = yield select(selectorAds);
   if (ads.length > 0 && ads.length % 90 === 0) {
-    const filteredAds = utilityFilterData(ads);
+    // const filteredAds = utilityFilterData(ads);
 
-    const adsObject = filteredAds.reduce((obj: any, ad: any) => {
+    const adsObject = ads.reduce((obj: any, ad: any) => {
       obj[ad.urn] = ad;
       return obj;
     }, {});
