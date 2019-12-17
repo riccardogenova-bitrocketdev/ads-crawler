@@ -2,7 +2,7 @@
 
 // #region ::: IMPORT
 import { call, delay, select, put } from 'redux-saga/effects';
-import { apiSubitoSiciliaAllAds } from '../../api';
+import { apiSubito } from '../../api';
 import {
   selectorPageFrom,
   selectorTotaleItems,
@@ -19,7 +19,7 @@ import {
 } from '../actions';
 import {
   utilityGetRandomInt,
-  utilityFilterData,
+  // utilityFilterData,
   utilityDownloadFile,
   utilityConvertDataToJSON,
   utilityConvertDataToCSV,
@@ -46,7 +46,7 @@ export function* sagaPollRate() {
 export function* sagaFetchData(action: any) {
   try {
     const prevTotalItems: number = yield select(selectorTotaleItems);
-    const response: Response = yield call(apiSubitoSiciliaAllAds, {
+    const response: Response = yield call(apiSubito, {
       page: action.from,
     });
     if (prevTotalItems !== response.count_all) {
